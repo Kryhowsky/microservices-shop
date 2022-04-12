@@ -4,12 +4,3 @@ server:
 spring:
   application:
     name: BASKET-SERVICE
-
-  datasource:
-    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:microservices_bakset}?useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Warsaw&autoReconnect=true&characterEncoding=UTF-8&useUnicode=yes
-    username: ${RDS_USERNAME:root}
-    password: ${RDS_PASSWORD:admin}
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update

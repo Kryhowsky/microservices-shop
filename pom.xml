@@ -19,6 +19,7 @@
 		<module>gateway</module>
 		<module>user</module>
 		<module>product</module>
-	</modules>
+        <module>common</module>
+    </modules>
 
 </project>

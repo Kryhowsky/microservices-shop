@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="basket" />
         <module name="product" />
+        <module name="common" />
         <module name="user" />
         <module name="gateway" />
         <module name="discovery" />
