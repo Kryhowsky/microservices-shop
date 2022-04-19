@@ -1,41 +1,40 @@
 package com.kryhowsky.user.controller;
 
-import com.kryhowsky.user.model.User;
+import com.kryhowsky.common.rest.UserDto;
+import com.kryhowsky.user.mapper.UserMapper;
 import com.kryhowsky.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequiredArgsConstructor
-public class UserController {
+import javax.validation.Valid;
 
-    private final UserService userService;
+@RestController
+public record UserController (UserMapper userMapper, UserService userService) {
 
     @PostMapping
     @Operation(description = "Allows to add new User.")
-    public User save(@RequestBody User user) {
-        return userService.save(user);
+    public UserDto save(@RequestBody @Valid UserDto user) {
+        return userMapper.toDto(userService.save(userMapper.toDao(user)));
     }
 
     @GetMapping("/{id}")
     @Operation(description = "Returns user by given Id.")
-    public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public UserDto getUserById(@PathVariable Long id) {
+        return userMapper.toDto(userService.getUserById(id));
     }
 
     @GetMapping
     @Operation(description = "Returns page of Users with specific size.")
-    public Page<User> getUserPage(@RequestParam int page, @RequestParam int size) {
-        return userService.getPage(PageRequest.of(page, size));
+    public Page<UserDto> getUserPage(@RequestParam int page, @RequestParam int size) {
+        return userService.getPage(PageRequest.of(page, size)).map(userMapper::toDto);
     }
 
     @PutMapping("/{id}")
     @Operation(description = "Allows to update user specified by Id.")
-    public User updateUser(@RequestBody User user, @PathVariable Long id) {
-        return userService.update(user, id);
+    public UserDto updateUser(@RequestBody @Valid UserDto user, @PathVariable Long id) {
+        return userMapper.toDto(userService.update(userMapper.toDao(user), id));
     }
 
     @DeleteMapping("/{id}")

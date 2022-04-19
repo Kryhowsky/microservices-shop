@@ -2,23 +2,18 @@ package com.kryhowsky.basket.controller;
 
 import com.kryhowsky.basket.model.Basket;
 import com.kryhowsky.basket.repository.BasketRepository;
+import com.kryhowsky.basket.service.BasketService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public record BasketController (BasketRepository basketRepository) {
-
-    @PostMapping
-    @Operation(description = "Allows to add new Basket.")
-    public Basket addBasket(@RequestBody Basket basket) {
-        return basketRepository.save(basket);
-    }
+public record BasketController (BasketRepository basketRepository, BasketService basketService) {
 
     @GetMapping("/{id}")
     @Operation(description = "Allows to get Basket by Id.")
-    public Basket getBasketById(@PathVariable String id) {
+    public Basket getBasket(@PathVariable String id) {
         return basketRepository.findById(id).orElseThrow();
     }
 
@@ -38,6 +33,11 @@ public record BasketController (BasketRepository basketRepository) {
     @Operation(description = "Returns page of Baskets with specific size")
     public Page<Basket> getBasketPage(@RequestParam int page, @RequestParam int size) {
         return basketRepository.findAll(PageRequest.of(page, size));
+    }
+
+    @PostMapping
+    public void addProductToBasket(@RequestParam Long id) {
+        basketService.addProductToBasket(id);
     }
 
 }

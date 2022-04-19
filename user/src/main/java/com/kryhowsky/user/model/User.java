@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,4 +24,9 @@ public class User {
 
     private String email;
     private String password;
+
+    @ManyToMany
+    @JoinTable(name = "user_role", inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
 }
