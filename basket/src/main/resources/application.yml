@@ -4,3 +4,19 @@ server:
 spring:
   application:
     name: BASKET-SERVICE
+
+resilience4j:
+  retry:
+    instances:
+      productApi:
+        maxAttempts: 3
+        waitDuration: 10s
+        enableExponentialBackoff: true
+  circuitbreaker:
+    instances:
+      productApi:
+        failure-rate-threshold: 50
+#        permitted-number-of-calls-in-half-open-state: 2
+#        max-wait-duration-in-half-open-state: 120000
+#        sliding-window-type: count_based
+        sliding-window-size: 10

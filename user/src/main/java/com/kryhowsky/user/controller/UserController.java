@@ -43,4 +43,10 @@ public record UserController (UserMapper userMapper, UserService userService) {
         userService.delete(id);
     }
 
+    @GetMapping("/current")
+    @Operation(description = "Allows to get current user.")
+    public UserDto getCurrentUser() {
+        return userMapper.toDto(userService.getCurrentUser());
+    }
+
 }

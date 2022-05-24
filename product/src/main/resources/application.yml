@@ -13,3 +13,11 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+            StatementCreatorUtils: TRACE

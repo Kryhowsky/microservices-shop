@@ -9,6 +9,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ProductClient {
 
     @GetMapping("/{id}")
+//    @Retry(name = "productApi", fallbackMethod = "defaultMethod")
+//    @CircuitBreaker(name = "productApi", fallbackMethod = "defaultMethod")
     ProductDto getProductById(@PathVariable Long id);
+
+    default ProductDto defaultMethod(Exception exception) {
+        System.out.println("DEFAULT METHOD");
+        return ProductDto.builder()
+                .quantity(-1)
+                .build();
+    }
 
 }

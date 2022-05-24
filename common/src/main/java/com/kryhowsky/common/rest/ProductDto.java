@@ -21,5 +21,6 @@ public class ProductDto {
     private String description;
     private BigDecimal price;
     private Integer quantity;
+    private Long version;
 
 }

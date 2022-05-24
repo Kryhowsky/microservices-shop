@@ -7,10 +7,12 @@ import com.kryhowsky.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 
 @Service
@@ -54,4 +56,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.getById(id);
     }
 
+    @Override
+    public User getCurrentUser() {
+        return userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(EntityNotFoundException::new);
+    }
 }

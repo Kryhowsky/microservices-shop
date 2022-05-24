@@ -11,5 +11,6 @@ public interface UserService {
     void delete(Long id);
     Page<User> getPage(Pageable pageable);
     User getUserById(Long id);
+    User getCurrentUser();
 
 }

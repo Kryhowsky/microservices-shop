@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 
@@ -28,5 +25,8 @@ public class Product {
     private String description;
     private BigDecimal price;
     private Integer quantity;
+
+    @Version
+    private Long version;
 
 }
